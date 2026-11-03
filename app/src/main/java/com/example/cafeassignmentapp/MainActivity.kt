@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         val emailInput = findViewById<EditText>(R.id.emailInput)
         val passwordInput = findViewById<EditText>(R.id.passwordInput)
         val loginButton = findViewById<Button>(R.id.loginButton)
+        val registerButton = findViewById<Button>(R.id.MainButton_Register)
 
         loginButton.setOnClickListener {
             val email = emailInput.text.toString().trim()
@@ -41,26 +42,39 @@ class MainActivity : AppCompatActivity() {
                 attemptLogin(email, password)
             }
         }
+
+        registerButton.setOnClickListener {
+
+            val email = emailInput.text.toString().trim()
+            val password = passwordInput.text.toString()
+
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this,
+                    "Please enter both email and password",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            return@setOnClickListener
+            }
+            auth.createUserWithEmailAndPassword(email,password)
+            .addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                Toast.makeText(
+                    this,
+                    "Registration successful",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                startActivity(Intent(this, HomeActivity::class.java))
+                finish()
+            } else {
+                Toast.makeText(this, task.exception?.message ?: "Registration failed", Toast.LENGTH_LONG).show()
+            }
+        }
+      }
     }
 
-    //*  // private fun attemptLogin(email: String, password: String) {
-//
-//            auth.signInWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(this) { task ->
-//                    if (task.isSuccessful) {
-//                        Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-//
-//                        startActivity(Intent(this, HomePageActivity::class.java))
-//
-//                        finish()
-//
-//
-//                    } else {
-//                        Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//        }
-//    }
+
 
     private fun attemptLogin(email: String, password: String) {
 

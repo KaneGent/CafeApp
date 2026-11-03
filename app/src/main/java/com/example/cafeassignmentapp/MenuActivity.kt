@@ -13,14 +13,7 @@ class MenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
 
-        setContentView(R.layout.activity_menu)
 
-       val gridMenu = findViewById<GridView>(R.id.gridMenu)
-        val menuItems = arrayOf("Latte", "Tea", "Cappuccino", "Mocha", "Americano", "Espresso", "Macchiato")
-
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, menuItems)
-
-        gridMenu.adapter = adapter
 
     }
 }
