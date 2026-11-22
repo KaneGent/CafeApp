@@ -77,34 +77,25 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun attemptLogin(email: String, password: String) {
-
         Toast.makeText(this, "Trying Firebase login", Toast.LENGTH_SHORT).show()
-
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
-
                 if (task.isSuccessful) {
-
                     Toast.makeText(
                         this,
                         "Login successful",
                         Toast.LENGTH_SHORT
                     ).show()
-
                     startActivity(
                         Intent(this, HomeActivity::class.java)
                     )
-
                     finish()
-
                 } else {
-
                     Toast.makeText(
                         this,
                         task.exception?.message ?: "Login failed",
                         Toast.LENGTH_LONG
                     ).show()
-
                 }
             }
     }
